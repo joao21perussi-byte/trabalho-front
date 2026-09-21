@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coding Conf 2025 – Ticket Generator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== SVG sprites (logo + icons) ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="logo" viewBox="0 0 40 40">
+        <path fill="currentColor" d="M2 9.5C2 6.4 5 4.3 8 5.3l11 3.7v10H9C5 19 2 16 2 12z"/>
+        <path fill="currentColor" d="M21 6h11c3.3 0 6 2.7 6 6v1c0 3.9-3.1 7-7 7h-10z"/>
+        <path fill="currentColor" d="M2 27c0-3.9 3.1-7 7-7h10v14H8c-3.3 0-6-2.7-6-6z"/>
+        <path fill="currentColor" d="M21 21h10c4 0 7 3 7 7 0 3.1-3 5.2-6 4.2L21 28.5z"/>
+      </symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+        </g>
+      </symbol>
+      <symbol id="icon-upload" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 13v8"/>
+          <path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/>
+          <path d="m8 17 4-4 4 4"/>
+        </g>
+      </symbol>
+      <symbol id="icon-github" viewBox="0 0 16 16">
+        <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+      </symbol>
+
+      <linearGradient id="g-arc" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f57261"/>
+        <stop offset="1" stop-color="#a97b86"/>
+      </linearGradient>
+      <linearGradient id="g-arc2" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#f57261"/>
+        <stop offset="0.45" stop-color="#b6787b"/>
+        <stop offset="1" stop-color="#5a3a8a" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="g-swirl" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#8d6aa0" stop-opacity="0"/>
+        <stop offset="0.35" stop-color="#8d6aa0" stop-opacity=".75"/>
+        <stop offset="1" stop-color="#c58a8c" stop-opacity=".9"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ===== Background decoration ===== -->
+  <div class="fundo" aria-hidden="true">
+    <div class="fundo__linhas"></div>
+
+    <svg class="fundo__circulos fundo__circulos--sup-esq" viewBox="0 0 220 220" fill="none" stroke="rgba(255,255,255,.14)">
+      <circle cx="110" cy="110" r="108"/><circle cx="110" cy="110" r="54"/>
+    </svg>
+    <svg class="fundo__circulos fundo__circulos--direita" viewBox="0 0 220 220" fill="none" stroke="rgba(255,255,255,.14)">
+      <circle cx="110" cy="110" r="108"/><circle cx="110" cy="110" r="54"/>
+    </svg>
+
+    <svg class="fundo__espiral" viewBox="0 0 300 220" fill="none">
+      <path d="M0 18C90 12 190 14 207 38c20 30-17 55-80 98-40 28-62 50-52 64 10 13 40 12 78 6l147-32"
+            stroke="url(#g-swirl)" stroke-width="14" stroke-linecap="round"/>
+    </svg>
+
+    <svg class="fundo__arcos" viewBox="0 0 810 470" fill="none">
+      <path d="M-10 25C200 25 355 165 350 340c-2 55-14 100-34 130" stroke="url(#g-arc)" stroke-width="24"/>
+      <path d="M35 470C100 360 250 268 430 268c170 0 290 70 380 150" stroke="url(#g-arc2)" stroke-width="22"/>
+    </svg>
+  </div>
+
+  <main class="pagina">
+
+    <header class="marca">
+      <svg class="marca__logo" aria-hidden="true"><use href="#logo"/></svg>
+      <span class="marca__nome">Coding Conf</span>
+    </header>
+
+    <!-- ================= FORM VIEW ================= -->
+    <section id="form-view">
+      <h1 class="titulo">Your Journey to Coding Conf 2025 Starts Here!</h1>
+      <p class="subtitulo">Secure your spot at next year’s biggest coding conference.</p>
+
+      <form id="ticket-form" class="formulario" novalidate>
+
+        <!-- Avatar -->
+        <div class="campo">
+          <label class="rotulo" id="avatar-label" for="avatar-input">Upload Avatar</label>
+
+          <div class="area-upload" id="dropzone" role="button" tabindex="0"
+               aria-labelledby="avatar-label" aria-describedby="avatar-hint">
+            <input type="file" id="avatar-input" accept="image/png,image/jpeg" hidden />
+
+            <div class="area-upload__miniatura" id="dz-thumb">
+              <svg class="area-upload__icone" aria-hidden="true"><use href="#icon-upload"/></svg>
+              <img id="dz-preview" alt="Avatar preview" hidden />
+            </div>
+
+            <p class="area-upload__texto" id="dz-text">Drag and drop or click to upload</p>
+
+            <div class="area-upload__acoes" id="dz-actions" hidden>
+              <button type="button" class="botao-mini botao-mini--sublinhado" id="btn-remove">Remove image</button>
+              <button type="button" class="botao-mini" id="btn-change">Change image</button>
+            </div>
+          </div>
+
+          <p class="dica" id="avatar-hint">
+            <svg aria-hidden="true"><use href="#icon-info"/></svg>
+            <span>Upload your photo (JPG or PNG, max size: 500KB).</span>
+          </p>
+        </div>
+
+        <!-- Name -->
+        <div class="campo" id="field-name">
+          <label class="rotulo" for="name">Full Name</label>
+          <input class="entrada" type="text" id="name" name="name" autocomplete="name"
+                 aria-describedby="name-error" />
+          <p class="dica dica--erro" id="name-error" role="alert" hidden>
+            <svg aria-hidden="true"><use href="#icon-info"/></svg>
+            <span></span>
+          </p>
+        </div>
+
+        <!-- Email -->
+        <div class="campo" id="field-email">
+          <label class="rotulo" for="email">Email Address</label>
+          <input class="entrada" type="email" id="email" name="email" autocomplete="email"
+                 placeholder="example@email.com" aria-describedby="email-error" />
+          <p class="dica dica--erro" id="email-error" role="alert" hidden>
+            <svg aria-hidden="true"><use href="#icon-info"/></svg>
+            <span></span>
+          </p>
+        </div>
+
+        <!-- GitHub -->
+        <div class="campo" id="field-github">
+          <label class="rotulo" for="github">GitHub Username</label>
+          <input class="entrada" type="text" id="github" name="github" autocomplete="off"
+                 placeholder="@yourusername" aria-describedby="github-error" />
+          <p class="dica dica--erro" id="github-error" role="alert" hidden>
+            <svg aria-hidden="true"><use href="#icon-info"/></svg>
+            <span></span>
+          </p>
+        </div>
+
+        <button type="submit" class="botao">Generate My Ticket</button>
+      </form>
+    </section>
+
+    <!-- ================= TICKET VIEW ================= -->
+    <section id="ticket-view" hidden>
+      <h1 class="titulo titulo--ingresso">
+        Congrats, <span class="destaque" id="t-name-heading"></span>! Your ticket is ready.
+      </h1>
+      <p class="subtitulo subtitulo--ingresso">
+        We've emailed your ticket to
+        <span class="destaque" id="t-email"></span>
+        and will send updates in the run up to the event.
+      </p>
+
+      <article class="ingresso" aria-label="Your conference ticket">
+        <div class="ingresso__interno">
+          <div class="ingresso__principal">
+            <div class="ingresso__cabecalho">
+              <svg class="ingresso__logo" aria-hidden="true"><use href="#logo"/></svg>
+              <div>
+                <p class="ingresso__titulo">Coding Conf</p>
+                <p class="ingresso__info">Jan 31, 2025 / Austin, TX</p>
+              </div>
+            </div>
+
+            <div class="ingresso__pessoa">
+              <img class="ingresso__avatar" id="t-avatar" alt="" />
+              <div>
+                <p class="ingresso__nome" id="t-name"></p>
+                <p class="ingresso__github">
+                  <svg aria-hidden="true"><use href="#icon-github"/></svg>
+                  <span id="t-github"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="ingresso__canhoto" aria-hidden="true">
+            <span class="ingresso__numero" id="t-number">#01609</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
